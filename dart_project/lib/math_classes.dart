@@ -1,67 +1,147 @@
 import 'dart:math';
 
-int gcdFunction(int a, int b) {
-  return b > 0 ? gcdFunction(b, a % b) : a;
-}
+class DelimetersCalculator {  // 1.1 НОД и НОК
 
-int lcmFunction(int a, int b) {
-  return (a * b) ~/ gcdFunction(a, b);
-}
-
-int secondDegreeToTenth(int number) {
-  int count = 0, resultValue = 0;
-
-  while (number > 0) {
-    resultValue += (number % 10) * (pow(2, count).toInt());
-    number = number ~/ 10;
-    count++;
+  static int greatestCommonDivider(int numberOne, int numberTwo) {
+    return _absForGcd(numberTwo) != 0 ? greatestCommonDivider(numberTwo, numberOne % numberTwo) : numberOne;
   }
-  return resultValue;
+
+  static int _absForGcd(int number) {
+    return number > 0 ? number : -number;
+  }
+
+  static int leastCommonMultiple(int numberOne, int numberTwo) {
+    return numberOne ~/ greatestCommonDivider(numberOne, numberTwo) * numberTwo;
+  }
 }
 
-List<bool> tenthDegreeToSecond(int number) {
-  List<bool> tempValueList = [];
-  while (number > 0) {
-    if (number % 2 == 0) {
-      tempValueList.add(false);
+class NumberFactorization { // 1.2 Простые множители
+  int numberForFactorization;
+
+  NumberFactorization(this.numberForFactorization) {
+    if (numberForFactorization <= 0) {
+      throw ArgumentError('The entered number is not natural');
+    }
+  }
+  List<int> numberFactorization() {
+    int numberForChange = numberForFactorization;
+    List<int> resultValues = [];
+    int div = 2;
+    while (numberForChange > 1) {
+      while (numberForChange % div == 0) {
+        resultValues.add(div);
+        numberForChange ~/= div;
+      }
+      div++;
+    }
+    return resultValues;
+  }
+}
+
+class BinaryAndDecimal {  // 2 Из двоичной в десятичную и обратно 
+  static int binaryToDecimal(String binaryNumber) {
+    int count = 0, resultValue = 0;
+    int number;
+    if (int.tryParse(binaryNumber) == null) {
+      throw ArgumentError('Your string is not a numbers');
     } else {
-      tempValueList.add(true);
-    }
-    number ~/= 2;
-  }
-  List<bool> resultValueList = tempValueList.reversed.toList();
-  return resultValueList;
-}
-
-List<num> numbersInString(String inputString) {
-  List<String> splitString = inputString.split(' ');
-  List<num> resultList = [];
-  for (String item in splitString) {
-    if (num.tryParse(item) != null) {
-      resultList.add(num.parse(item));
-    }
-  }
-  return resultList;
-}
-
-Map<String, int> countWordInStringList(List<String> inputStringList) {
-  Map<String, int> resultMap = {};
-  int count = 0;
-  for (int i = 0; i < inputStringList.length; i++) {
-    count = 1;
-    if (!resultMap.containsKey(inputStringList[i])) {
-      for (int j = i + 1; j < inputStringList.length - 1; j++) {
-        if (inputStringList[i] == inputStringList[j]) {
-          count++;
+      for (int index = 0; index < binaryNumber.length; index++) {
+        if (binaryNumber[index] != '1' && binaryNumber[index] != '0') {
+          throw ArgumentError('Your string is not a binary');
         }
       }
-      resultMap[inputStringList[i]] = count;
+      number = int.parse(binaryNumber);
+      while (number > 0) {
+        resultValue += (number % 10) * (pow(2, count).toInt());
+        number = number ~/ 10;
+        count++;
+      }
+      return resultValue;
     }
   }
-  return resultMap;
+
+  static List<String> decimalToBinary(int number) {   
+    List<String> tempValueList = [];
+    while (number > 0) {
+      if (number % 2 == 0) {
+        tempValueList.add('0');
+      } else {
+        tempValueList.add('1');
+      }
+      number ~/= 2;
+    }
+    List<String> resultValueList = tempValueList.reversed.toList();
+    return resultValueList;
+  }
 }
 
-class Point {
+class StringAndWords {    // 
+  List<String> stringList;
+  static const List<String> equalValues = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine'
+  ];
+
+  StringAndWords(this.stringList) {
+    if (stringList.isEmpty) {
+      throw ArgumentError('Your string list is empty');
+    }
+  }
+
+  static List<num> numbersPerLines(String inputString) { // 3 Из строки слов выловить числа 
+    if (inputString.isEmpty) {
+      throw ArgumentError('Your string list is empty');
+    }
+    List<String> splitString = inputString.split(' ');
+    List<num> resultList = [];
+    for (String item in splitString) {
+      if (num.tryParse(item) != null) {
+        resultList.add(num.parse(item));
+      }
+    }
+    return resultList;
+  }
+
+  Map<String, int> countWordInStringList() {  // 4 Map<Слово, кол-во этого слова в строке>
+    Map<String, int> resultMap = {};
+    int count = 0;
+    for (int i = 0; i < stringList.length; i++) {
+      count = 1;
+      if (!resultMap.containsKey(stringList[i])) {
+        for (int j = i + 1; j < stringList.length - 1; j++) {
+          if (stringList[i] == stringList[j]) {
+            count++;
+          }
+        }
+        resultMap[stringList[i]] = count;
+      }
+    }
+    return resultMap;
+  }
+
+  List<int> numbersFromStringToInt() {  // 5 Из one, two, three в 1, 2, 3 
+    List<int> resultNumbers = [];
+
+    for (String word in stringList) {
+      if (equalValues.contains(word) && !resultNumbers.contains(word)) {
+        resultNumbers.add(equalValues.indexOf(word));
+      }
+    }
+    return resultNumbers;
+  }
+
+
+}
+
+class Point { // 6 
   double xCoords;
   double yCoords;
   double zCoords;
@@ -77,7 +157,7 @@ class Point {
   }
 
   factory Point.plusOnePoint(Point point) {
-    return Point(point.xCoords + 1, point.yCoords + 1, point.zCoords + 1);
+    return Point(point.xCoords++, point.yCoords++, point.zCoords++);
   }
 
   double distanceTo(Point another) {
@@ -106,41 +186,137 @@ class Point {
   }
 }
 
-extension on num {
-  num rootOfNewton(int degree)
-  {
-   num eps = 0.0001;
-   num prevY, nextY;
- 
-   nextY = this;
-   do
-   {
-      prevY = nextY;
-      nextY = (prevY*(degree - 1) + this / prevY.introductionToDegree(degree - 1)) / degree;
-   }while ((nextY - prevY).numberAbs() > eps);
-      return nextY;
-  }
-}
-extension on num {
-  num introductionToDegree(int degree){
-    num result = this;
-    for (int i = 0; i < degree; i++)
-    {
-      result *= this;
+class RootDegree {
+  num numberForCalc;
+  int degreeOfRoot;
+
+  RootDegree(this.numberForCalc, this.degreeOfRoot) {
+    if (numberForCalc < 0 && degreeOfRoot % 2 == 0) {
+      throw ArgumentError('Your enter negative number in even degree');
     }
-    return result;
+  }
+
+  num calcRootValueInDegree() {
+    return numberForCalc._rootOfNDegree(degreeOfRoot);
   }
 }
 
 extension on num {
-  num numberAbs(){
-    if (this > 0) 
-    {
-      return this;
+  num _rootOfNDegree(int degree) {
+    num eps = 0.00000001;
+    num xPrev, xNext;
+
+    xNext = this / degree;
+    do {
+      xPrev = xNext;
+      xNext = (1 / degree) *
+          ((degree - 1) * xPrev + (this / xPrev._leftToRightPow(degree - 1)));
+    } while ((xNext - xPrev)._numberAbs() >= eps);
+    return xNext;
+  }
+}
+
+extension on num {
+  num _leftToRightPow(int degree) {
+    List<int> binaryMCoef = [];
+    List<String> tempBinaryValues = BinaryAndDecimal.decimalToBinary(degree);
+    num resultValues = 1;
+    for (int i = 0; i < tempBinaryValues.length; i++) {
+      binaryMCoef.add(int.parse(tempBinaryValues[i]));
     }
-    else 
-    {
+    for (int i = 0; i < binaryMCoef.length; i++) {
+      if (binaryMCoef[i] == 1) {
+        resultValues = resultValues._raisingToSecDegree();
+        resultValues *= this;
+      } else {
+        resultValues = resultValues._raisingToSecDegree();
+      }
+    }
+    return resultValues;
+  }
+}
+
+extension on num {
+  num _raisingToSecDegree() {
+    return this * this;
+  }
+}
+
+extension on num {
+  num _numberAbs() {
+    if (this > 0) {
+      return this;
+    } else {
       return -this;
     }
   }
 }
+
+
+class User { // 8 
+  late String email;
+
+  User(String email) {
+    if (email.contains('@')) {
+      if (email.substring(email.indexOf('@'), email.length).contains('.') &&
+          email.substring(email.indexOf('@'), email.length).length > 5) {
+        this.email = email;
+      } else {
+        throw Exception('Your domain is not correct');
+      }
+    } else {
+      throw Exception('Your email is not contains @');
+    }
+  }
+}
+
+class AdminUser extends User with MailDetails {
+  AdminUser(String email) : super(email);
+}
+
+class GeneralUser extends User {
+  GeneralUser(String email) : super(email);
+}
+
+mixin MailDetails on User {
+  String getMailSystem() {
+    int indexOfAt = email.indexOf('@');
+    return email.substring(indexOfAt + 1);
+  }
+}
+
+class UserManager<T extends User> {
+  List<T> usersList = [];
+
+  UserManager();
+
+  void addUser(T user) {
+    usersList.add(user);
+  }
+
+  void deleteUser(String email) {
+    bool isInList = false;
+    for (T user in usersList) {
+      if (user.email == email) {
+        isInList = true;
+        usersList.remove(user);
+        break;
+      }
+    }
+    if (!isInList) {
+      throw Exception('This user is not exists');
+    }
+  }
+
+  void showAllUsers() {
+    for (User user in usersList) {
+      if (user is GeneralUser) {
+        print('Users email: ${user.email}');
+      }
+      if (user is AdminUser) {
+        print('Admin domain: ${user.getMailSystem()}');
+      }
+    }
+  }
+}
+

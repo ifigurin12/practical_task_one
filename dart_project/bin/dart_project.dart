@@ -1,20 +1,66 @@
+
 import 'package:dart_project/math_classes.dart';
 
+void main(List<String> arguments) {
+  print(DelimetersCalculator.greatestCommonDivider(15, 20));
+  print(DelimetersCalculator.leastCommonMultiple(15, 20));
 
-void main(List<String> arguments) 
-{
-  int a = 15, b = 20; 
-  print(gcdFunction(a, b));
-  print(lcmFunction(50, 175));
-  print(secondDegreeToTenth(1010010));
-  print(tenthDegreeToSecond(82)); // В dart нету типа byte, поэтому вывожу как список логических значений
-  String forCheckNextMethod = '1 2 3 cat dog 2 4 bad worse next 13.4';
-  print(numbersInString(forCheckNextMethod));
-  List<String> example = ['11', '11', '21', 'cat', 'cat', '714'];
-  print(countWordInStringList(example));
-  Point p1 = Point(-2, 1, 2); 
+  NumberFactorization numberFactorizationTest = NumberFactorization(12);
+  print(numberFactorizationTest.numberFactorization());
+
+  print(BinaryAndDecimal.binaryToDecimal('1010011'));
+  print(BinaryAndDecimal.decimalToBinary(82));
+
+  String forCheckNumbersPerLines = '1 2 3 cat dog 2 4 bad worse next 13.4';
+  print(StringAndWords.numbersPerLines(forCheckNumbersPerLines).toString());
+
+  List<String> stringListToMapTaskCheck = ['11', '11', '21', 'cat', 'cat', '714'];
+  StringAndWords testCountWordInString = StringAndWords(stringListToMapTaskCheck);
+  print(testCountWordInString.countWordInStringList());
+
+  List<String> forCheckNumbersForStringToInt = [
+    'five',
+    'one',
+    'two',
+    'klop',
+    'ten',
+    'ten',
+    'cat',
+    'dog',
+    'ten',
+  ];
+  StringAndWords testStringWithNoRepeat = StringAndWords(forCheckNumbersForStringToInt);
+  print(testStringWithNoRepeat.numbersFromStringToInt());
+  
+  Point p1 = Point(-2, 1, 2);
   print(p1.distanceTo(Point(1, 2, 3)));
   print(p1.areaOfTriangle(Point(3, -3, 4), Point(1, 0, 9)));
-  num exampleNum = 13; 
+
+  RootDegree forCheckExtensionTask = RootDegree(-150, 9); 
+  print(forCheckExtensionTask.calcRootValueInDegree()); 
+
+  
+  GeneralUser simpleUserOne = GeneralUser('privet@ok.ru');
+  GeneralUser simpleUserTwo = GeneralUser('poka@bk.ru');
+  GeneralUser simpleUserThree = GeneralUser('panzer@ispu.ru');
+  AdminUser adminOne = AdminUser('apok@ok.ru');
+  AdminUser adminTwo = AdminUser('prill@yandex.com');
+  AdminUser adminThree = AdminUser('thrill@gmail.com');
+  UserManager usM = UserManager();
+  usM.addUser(simpleUserOne);
+  usM.addUser(simpleUserTwo);
+  usM.addUser(simpleUserThree);
+  usM.addUser(adminOne);
+  usM.addUser(adminTwo);
+  usM.addUser(adminThree);
+  usM.showAllUsers();
+  usM.deleteUser('panzer@ispu.ru');
+  usM.deleteUser('thrill@gmail.com');
+  usM.deleteUser('poka@bk.ru');
+  print('--------------------');
+  usM.showAllUsers();
+  
 }
+
+
 
