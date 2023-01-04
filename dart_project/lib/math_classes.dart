@@ -85,22 +85,25 @@ class BinaryAndDecimal {
 
   static String decimalToBinary(int number) {
     List<String> tempValueList = [];
+    bool isNegative = number > 0 ? false : true;
     while (number != 0) {
       if (number % 2 == 0) {
-        number > 0 ? tempValueList.add('0') : tempValueList.add('1');
+        tempValueList.add('0');
       } else {
-        number > 0 ? tempValueList.add('1') : tempValueList.add('0');
+       tempValueList.add('1');
       }
       number ~/= 2;
     }
     List<String> preResultValueList = tempValueList.reversed.toList();
     String result = '';
-    for (int i = 0; i < preResultValueList.length - 1; i++) {
+    for (int i = 0; i < preResultValueList.length; i++) {
+      if (i == 0 && isNegative)
+      {
+        result += '-';   
+      }
       result += preResultValueList[i];
     }
-    return number > 0
-        ? result += preResultValueList[preResultValueList.length - 1]
-        : result += '1';
+    return result;
   }
 }
 
