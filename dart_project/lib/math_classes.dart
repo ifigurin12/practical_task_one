@@ -1,8 +1,15 @@
 import 'dart:math';
 
+/// Класс содержит три метода, первый для вычислеия НОД, второй для вычисления НОК,
+/// третий метод является вспомогательным, для нахождения модуля.
+///
+///
+/// Примеры:
+///
+/// greatestCommonDivider(15, 20) = 5
+///
+/// leastCommonMultiple(15, 20) = 60;
 class DelimetersCalculator {
-  // Сontains two methods for calculating GCD and LCM (1 ex)
-
   static int greatestCommonDivider(int numberOne, int numberTwo) {
     return _absForGcd(numberTwo) != 0
         ? greatestCommonDivider(numberTwo, numberOne % numberTwo)
@@ -18,8 +25,13 @@ class DelimetersCalculator {
   }
 }
 
+/// Класс содержащий метод для разбиения числа на простые множители.
+///
+///
+/// Пример:
+///
+/// numberFactorization(12) = [2, 2, 3]
 class NumberFactorization {
-  // Сontains method for calculating factorization number (1 ex)
   static List<int> numberFactorization(int numberForFactorization) {
     List<int> resultValues = [];
     int div = 2;
@@ -34,17 +46,25 @@ class NumberFactorization {
   }
 }
 
+/// Класс содержит два метода для конвертации чисел из двоичной системы счисления в десятичную, и наоборот
+///
+///
+/// binaryToDecimal('-1010011') = -83
+/// binaryToDecimal('1010011') = 83
+///
+///
+/// decimalToBinary(-119) = 0001001
+/// decimalToBinary(-119) = 1110111
+///
 class BinaryAndDecimal {
-  // Contains two methods for convert Decimal to Binary and Binary to Decimal (2 ex)
   static int binaryToDecimal(String binaryNumber) {
     int count = 0, resultValue = 0;
     int number;
-    bool isNegative = false; 
-    if(binaryNumber.startsWith('-')) 
-    {
+    bool isNegative = false;
+    if (binaryNumber.startsWith('-')) {
       isNegative = true;
-      binaryNumber = binaryNumber.substring(1); 
-    } 
+      binaryNumber = binaryNumber.substring(1);
+    }
     if (int.tryParse(binaryNumber) == null) {
       throw ArgumentError('Your string is not a numbers');
     } else {
@@ -84,8 +104,25 @@ class BinaryAndDecimal {
   }
 }
 
+/// Содержит три метода для работы со строками:
+/// Первый метод - вернет нам цифры в строке
+/// Второй метод - вернет нам Map<Word, countWordInString>, где Word - это слово в коллекции строке, 
+/// а countWordInString - кол-во вхождений этого слова в коллекцию 
+/// Третий метод - вернет нам список чисел от 0 до 9, находящихся в коллекции строк, в 
+/// формате английских слов one, two, three и т.д 
+///
+/// example:
+///
+/// numbersPerLines('11', '118', 'five', 'dog') = [11, 118];
+///
+///
+/// countWordInStringList('cat', 'cat', 'car', '1567') = {cat: 2, car: 1, 1567: 1};
+///
+///
+/// numbersPerLines('one', 'two', 'one', 'cat') = [1, 2];
+///
+///
 class StringAndWords {
-  // Contains 3 methods for work with string (3, 4, 5 ex)
   static const List<String> equalValues = [
     'zero',
     'one',
@@ -142,9 +179,24 @@ class StringAndWords {
     return resultNumbers;
   }
 }
-
+/// Класс для работы с точками в 3-х мерном пространстве.
+/// 
+/// Содержит методы для нахождения:
+/// 
+/// Площади треугольника, через 3 координаты.
+/// Расстояния между двумя точками 
+/// Произведения двух векторов 
+/// 
+/// А также вспомогательный метод для нахождения модуля вектора
+/// 
+///  
+/// example: 
+/// 
+/// Point(-2, 1, 2).distanceTo(Point(1, 2, 3)) = 3.3166247903554; 
+/// 
+/// Point(-2, 1, 2).areaOfTriangle(Point(3, -3, 4), Point(1, 0, 9)) = 19.78635893740938; 
+/// 
 class Point {
-  // For work with point in three-dimensional space (6 ex)
   double xCoords;
   double yCoords;
   double zCoords;
@@ -169,7 +221,7 @@ class Point {
         pow(zCoords - another.zCoords, 2));
   }
 
-  double vectorABS() {
+  double _vectorABS() {
     return sqrt(pow(xCoords, 2) + pow(yCoords, 2) + pow(zCoords, 2));
   }
 
@@ -185,14 +237,19 @@ class Point {
         pointTwo.yCoords - yCoords, pointTwo.zCoords - zCoords);
     Point vectorTwo = Point(pointThree.xCoords - xCoords,
         pointThree.yCoords - yCoords, pointThree.zCoords - zCoords);
-    return 0.5 * vectorOne.vectorMultiple(vectorTwo).vectorABS();
+    return 0.5 * vectorOne.vectorMultiple(vectorTwo)._vectorABS();
   }
 }
 
+/// Класс содержащий метод, для вычисления корня n степени
+/// 
+/// Пример: 
+/// 
+/// calcRootValueInDegree(150, 9) = 1.650475668003059; 
 class RootDegree {
   // For calculating root of n degree (7 ex)
   static num calcRootValueInDegree(num number, int degreeOfRoot) {
-    return number._rootOfNDegree( degreeOfRoot);
+    return number._rootOfNDegree(degreeOfRoot);
   }
 }
 
@@ -247,9 +304,11 @@ extension on num {
     }
   }
 }
-
+/// Родительский класс использующийся как основа для двух последующих классов
+/// 
+/// Содержит проверку на правильность введенного email адреса 
+/// 
 class User {
-  // Classes from 8 ex
   late String email;
 
   User(String email) {
@@ -273,13 +332,24 @@ class AdminUser extends User with MailDetails {
 class GeneralUser extends User {
   GeneralUser(String email) : super(email);
 }
-
+/// Для вывода домена почты администратора, а не всей почты 
 mixin MailDetails on User {
   String getMailSystem() {
     int indexOfAt = email.indexOf('@');
     return email.substring(indexOfAt + 1);
   }
 }
+/// Класс для хранения всех пользователей 
+/// 
+/// Обладает методами: 
+/// 
+/// Добавления пользователя, 
+/// 
+/// Удаления пользователя по его email
+/// 
+/// Показа всех пользователей, но у администраторов 
+/// Будет выводиться не вся почта, а только домен 
+
 
 class UserManager<T extends User> {
   List<T> usersList = [];

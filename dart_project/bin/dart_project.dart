@@ -7,11 +7,11 @@ void main(List<String> arguments) {
 
   print(NumberFactorization.numberFactorization(12));
 
-  print(BinaryAndDecimal.binaryToDecimal('-1010011'));
-  print(BinaryAndDecimal.decimalToBinary(-119));
+  print(BinaryAndDecimal.binaryToDecimal('1010011'));
+  print(BinaryAndDecimal.decimalToBinary(119));
 
   String forCheckNumbersPerLines = '1 2 3 cat dog 2 4 bad worse next 13.4';
-  print(StringAndWords.numbersPerLines(forCheckNumbersPerLines).toString());
+  print(StringAndWords.numbersPerLines(forCheckNumbersPerLines));
 
   List<String> stringListToMapTaskCheck = ['11', '11', '21', 'cat', 'cat', '714'];
   print(StringAndWords.countWordInStringList(stringListToMapTaskCheck));
