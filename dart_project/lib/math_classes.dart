@@ -39,6 +39,12 @@ class BinaryAndDecimal {
   static int binaryToDecimal(String binaryNumber) {
     int count = 0, resultValue = 0;
     int number;
+    bool isNegative = false; 
+    if(binaryNumber.startsWith('-')) 
+    {
+      isNegative = true;
+      binaryNumber = binaryNumber.substring(1); 
+    } 
     if (int.tryParse(binaryNumber) == null) {
       throw ArgumentError('Your string is not a numbers');
     } else {
@@ -53,7 +59,7 @@ class BinaryAndDecimal {
         number = number ~/ 10;
         count++;
       }
-      return resultValue;
+      return isNegative ? -resultValue : resultValue;
     }
   }
 
