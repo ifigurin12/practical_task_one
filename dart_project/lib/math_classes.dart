@@ -60,23 +60,27 @@ class BinaryAndDecimal {  // 2 Из двоичной в десятичную и 
     }
   }
 
-  static List<String> decimalToBinary(int number) {   
+  static String decimalToBinary(int number) {   
     List<String> tempValueList = [];
-    while (number > 0) {
+    while (number != 0) {
       if (number % 2 == 0) {
-        tempValueList.add('0');
+        number > 0 ? tempValueList.add('0') : tempValueList.add('1');
       } else {
-        tempValueList.add('1');
+        number > 0 ? tempValueList.add('1') : tempValueList.add('0');
       }
       number ~/= 2;
     }
-    List<String> resultValueList = tempValueList.reversed.toList();
-    return resultValueList;
+    List<String> preResultValueList = tempValueList.reversed.toList();
+    String result = '';
+    for(int i = 0; i < preResultValueList.length - 1; i++) 
+    {
+      result += preResultValueList[i];
+    }
+    return number > 0 ? result += preResultValueList[preResultValueList.length - 1] : result += '1';
   }
 }
 
-class StringAndWords {    // 
-  List<String> stringList;
+class StringAndWords {    
   static const List<String> equalValues = [
     'zero',
     'one',
@@ -90,13 +94,9 @@ class StringAndWords {    //
     'nine'
   ];
 
-  StringAndWords(this.stringList) {
-    if (stringList.isEmpty) {
-      throw ArgumentError('Your string list is empty');
-    }
-  }
 
-  static List<num> numbersPerLines(String inputString) { // 3 Из строки слов выловить числа 
+  // Return all numbers in lines 
+  static List<num> numbersPerLines(String inputString) { 
     if (inputString.isEmpty) {
       throw ArgumentError('Your string list is empty');
     }
@@ -109,29 +109,30 @@ class StringAndWords {    //
     }
     return resultList;
   }
-
-  Map<String, int> countWordInStringList() {  // 4 Map<Слово, кол-во этого слова в строке>
+  // Return number of occurrences of words in a sentence
+  static Map<String, int> countWordInStringList(List<String> words) {  
     Map<String, int> resultMap = {};
     int count = 0;
-    for (int i = 0; i < stringList.length; i++) {
+    for (int i = 0; i < words.length; i++) {
       count = 1;
-      if (!resultMap.containsKey(stringList[i])) {
-        for (int j = i + 1; j < stringList.length - 1; j++) {
-          if (stringList[i] == stringList[j]) {
+      if (!resultMap.containsKey(words[i])) {
+        for (int j = i + 1; j < words.length - 1; j++) {
+          if (words[i] == words[j]) {
             count++;
           }
         }
-        resultMap[stringList[i]] = count;
+        resultMap[words[i]] = count;
       }
     }
     return resultMap;
   }
-
-  List<int> numbersFromStringToInt() {  // 5 Из one, two, three в 1, 2, 3 
+  
+  // Returns numbers in list with no repeat (5 ex)
+  static List<int> numbersFromStringToInt(List<String> words) {  
     List<int> resultNumbers = [];
 
-    for (String word in stringList) {
-      if (equalValues.contains(word) && !resultNumbers.contains(word)) {
+    for (String word in words) {
+      if (equalValues.contains(word) && !resultNumbers.contains(equalValues.indexOf(word))) {
         resultNumbers.add(equalValues.indexOf(word));
       }
     }
@@ -141,7 +142,8 @@ class StringAndWords {    //
 
 }
 
-class Point { // 6 
+class Point { 
+  // 6 задание с точками            
   double xCoords;
   double yCoords;
   double zCoords;
@@ -219,7 +221,7 @@ extension on num {
 extension on num {
   num _leftToRightPow(int degree) {
     List<int> binaryMCoef = [];
-    List<String> tempBinaryValues = BinaryAndDecimal.decimalToBinary(degree);
+    List<String> tempBinaryValues = BinaryAndDecimal.decimalToBinary(degree).split('');
     num resultValues = 1;
     for (int i = 0; i < tempBinaryValues.length; i++) {
       binaryMCoef.add(int.parse(tempBinaryValues[i]));

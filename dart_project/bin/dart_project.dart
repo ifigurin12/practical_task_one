@@ -9,17 +9,18 @@ void main(List<String> arguments) {
   print(numberFactorizationTest.numberFactorization());
 
   print(BinaryAndDecimal.binaryToDecimal('1010011'));
-  print(BinaryAndDecimal.decimalToBinary(82));
+  print(BinaryAndDecimal.decimalToBinary(119));
 
   String forCheckNumbersPerLines = '1 2 3 cat dog 2 4 bad worse next 13.4';
   print(StringAndWords.numbersPerLines(forCheckNumbersPerLines).toString());
 
   List<String> stringListToMapTaskCheck = ['11', '11', '21', 'cat', 'cat', '714'];
-  StringAndWords testCountWordInString = StringAndWords(stringListToMapTaskCheck);
-  print(testCountWordInString.countWordInStringList());
+  print(StringAndWords.countWordInStringList(stringListToMapTaskCheck));
 
   List<String> forCheckNumbersForStringToInt = [
     'five',
+    'five',
+    'one', 
     'one',
     'two',
     'klop',
@@ -29,8 +30,7 @@ void main(List<String> arguments) {
     'dog',
     'ten',
   ];
-  StringAndWords testStringWithNoRepeat = StringAndWords(forCheckNumbersForStringToInt);
-  print(testStringWithNoRepeat.numbersFromStringToInt());
+  print(StringAndWords.numbersFromStringToInt(forCheckNumbersForStringToInt));
   
   Point p1 = Point(-2, 1, 2);
   print(p1.distanceTo(Point(1, 2, 3)));
