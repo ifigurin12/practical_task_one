@@ -5,8 +5,7 @@ void main(List<String> arguments) {
   print(DelimetersCalculator.greatestCommonDivider(15, 20));
   print(DelimetersCalculator.leastCommonMultiple(15, 20));
 
-  NumberFactorization numberFactorizationTest = NumberFactorization(12);
-  print(numberFactorizationTest.numberFactorization());
+  print(NumberFactorization.numberFactorization(12));
 
   print(BinaryAndDecimal.binaryToDecimal('1010011'));
   print(BinaryAndDecimal.decimalToBinary(119));
@@ -36,8 +35,7 @@ void main(List<String> arguments) {
   print(p1.distanceTo(Point(1, 2, 3)));
   print(p1.areaOfTriangle(Point(3, -3, 4), Point(1, 0, 9)));
 
-  RootDegree forCheckExtensionTask = RootDegree(-150, 9); 
-  print(forCheckExtensionTask.calcRootValueInDegree()); 
+  print(RootDegree.calcRootValueInDegree(150, 9)); 
 
   
   GeneralUser simpleUserOne = GeneralUser('privet@ok.ru');

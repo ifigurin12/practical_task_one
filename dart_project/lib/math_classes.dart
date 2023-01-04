@@ -1,9 +1,12 @@
 import 'dart:math';
 
-class DelimetersCalculator {  // 1.1 НОД и НОК
+class DelimetersCalculator {
+  // Сontains two methods for calculating GCD and LCM (1 ex)
 
   static int greatestCommonDivider(int numberOne, int numberTwo) {
-    return _absForGcd(numberTwo) != 0 ? greatestCommonDivider(numberTwo, numberOne % numberTwo) : numberOne;
+    return _absForGcd(numberTwo) != 0
+        ? greatestCommonDivider(numberTwo, numberOne % numberTwo)
+        : numberOne;
   }
 
   static int _absForGcd(int number) {
@@ -15,22 +18,15 @@ class DelimetersCalculator {  // 1.1 НОД и НОК
   }
 }
 
-class NumberFactorization { // 1.2 Простые множители
-  int numberForFactorization;
-
-  NumberFactorization(this.numberForFactorization) {
-    if (numberForFactorization <= 0) {
-      throw ArgumentError('The entered number is not natural');
-    }
-  }
-  List<int> numberFactorization() {
-    int numberForChange = numberForFactorization;
+class NumberFactorization {
+  // Сontains method for calculating factorization number (1 ex)
+  static List<int> numberFactorization(int numberForFactorization) {
     List<int> resultValues = [];
     int div = 2;
-    while (numberForChange > 1) {
-      while (numberForChange % div == 0) {
+    while (numberForFactorization > 1) {
+      while (numberForFactorization % div == 0) {
         resultValues.add(div);
-        numberForChange ~/= div;
+        numberForFactorization ~/= div;
       }
       div++;
     }
@@ -38,7 +34,8 @@ class NumberFactorization { // 1.2 Простые множители
   }
 }
 
-class BinaryAndDecimal {  // 2 Из двоичной в десятичную и обратно 
+class BinaryAndDecimal {
+  // Contains two methods for convert Decimal to Binary and Binary to Decimal (2 ex)
   static int binaryToDecimal(String binaryNumber) {
     int count = 0, resultValue = 0;
     int number;
@@ -60,7 +57,7 @@ class BinaryAndDecimal {  // 2 Из двоичной в десятичную и 
     }
   }
 
-  static String decimalToBinary(int number) {   
+  static String decimalToBinary(int number) {
     List<String> tempValueList = [];
     while (number != 0) {
       if (number % 2 == 0) {
@@ -72,15 +69,17 @@ class BinaryAndDecimal {  // 2 Из двоичной в десятичную и 
     }
     List<String> preResultValueList = tempValueList.reversed.toList();
     String result = '';
-    for(int i = 0; i < preResultValueList.length - 1; i++) 
-    {
+    for (int i = 0; i < preResultValueList.length - 1; i++) {
       result += preResultValueList[i];
     }
-    return number > 0 ? result += preResultValueList[preResultValueList.length - 1] : result += '1';
+    return number > 0
+        ? result += preResultValueList[preResultValueList.length - 1]
+        : result += '1';
   }
 }
 
-class StringAndWords {    
+class StringAndWords {
+  // Contains 3 methods for work with string (3, 4, 5 ex)
   static const List<String> equalValues = [
     'zero',
     'one',
@@ -94,9 +93,7 @@ class StringAndWords {
     'nine'
   ];
 
-
-  // Return all numbers in lines 
-  static List<num> numbersPerLines(String inputString) { 
+  static List<num> numbersPerLines(String inputString) {
     if (inputString.isEmpty) {
       throw ArgumentError('Your string list is empty');
     }
@@ -109,8 +106,8 @@ class StringAndWords {
     }
     return resultList;
   }
-  // Return number of occurrences of words in a sentence
-  static Map<String, int> countWordInStringList(List<String> words) {  
+
+  static Map<String, int> countWordInStringList(List<String> words) {
     Map<String, int> resultMap = {};
     int count = 0;
     for (int i = 0; i < words.length; i++) {
@@ -126,24 +123,22 @@ class StringAndWords {
     }
     return resultMap;
   }
-  
-  // Returns numbers in list with no repeat (5 ex)
-  static List<int> numbersFromStringToInt(List<String> words) {  
+
+  static List<int> numbersFromStringToInt(List<String> words) {
     List<int> resultNumbers = [];
 
     for (String word in words) {
-      if (equalValues.contains(word) && !resultNumbers.contains(equalValues.indexOf(word))) {
+      if (equalValues.contains(word) &&
+          !resultNumbers.contains(equalValues.indexOf(word))) {
         resultNumbers.add(equalValues.indexOf(word));
       }
     }
     return resultNumbers;
   }
-
-
 }
 
-class Point { 
-  // 6 задание с точками            
+class Point {
+  // For work with point in three-dimensional space (6 ex)
   double xCoords;
   double yCoords;
   double zCoords;
@@ -189,17 +184,9 @@ class Point {
 }
 
 class RootDegree {
-  num numberForCalc;
-  int degreeOfRoot;
-
-  RootDegree(this.numberForCalc, this.degreeOfRoot) {
-    if (numberForCalc < 0 && degreeOfRoot % 2 == 0) {
-      throw ArgumentError('Your enter negative number in even degree');
-    }
-  }
-
-  num calcRootValueInDegree() {
-    return numberForCalc._rootOfNDegree(degreeOfRoot);
+  // For calculating root of n degree (7 ex)
+  static num calcRootValueInDegree(num number, int degreeOfRoot) {
+    return number._rootOfNDegree( degreeOfRoot);
   }
 }
 
@@ -221,7 +208,8 @@ extension on num {
 extension on num {
   num _leftToRightPow(int degree) {
     List<int> binaryMCoef = [];
-    List<String> tempBinaryValues = BinaryAndDecimal.decimalToBinary(degree).split('');
+    List<String> tempBinaryValues =
+        BinaryAndDecimal.decimalToBinary(degree).split('');
     num resultValues = 1;
     for (int i = 0; i < tempBinaryValues.length; i++) {
       binaryMCoef.add(int.parse(tempBinaryValues[i]));
@@ -254,8 +242,8 @@ extension on num {
   }
 }
 
-
-class User { // 8 
+class User {
+  // Classes from 8 ex
   late String email;
 
   User(String email) {
@@ -321,4 +309,3 @@ class UserManager<T extends User> {
     }
   }
 }
-
